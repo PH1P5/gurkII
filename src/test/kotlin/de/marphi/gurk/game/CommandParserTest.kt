@@ -8,21 +8,21 @@ class CommandParserTest {
 
     @Test
     fun `can parse move command`() {
-        val actual = CommandParser().parse("bitte gehe über den Regenbogen")
+        val actual = CommandParser().parseCommand("bitte gehe über den Regenbogen")
 
         assertThat(actual).isEqualTo(Command.Move)
     }
 
     @Test
     fun `can parse help command ignoring case`() {
-        val actual = CommandParser().parse("Zu Hilfe")
+        val actual = CommandParser().parseCommand("Zu Hilfe")
 
         assertThat(actual).isEqualTo(Command.Help)
     }
 
     @Test
     fun `can handle unknown command`() {
-        val actual = CommandParser().parse("was für ein §ch31ss ... ")
+        val actual = CommandParser().parseCommand("was für ein §ch31ss ... ")
 
         assertThat(actual).isEqualTo(Command.Unknown)
     }

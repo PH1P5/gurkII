@@ -1,10 +1,12 @@
 package de.marphi.gurk.game
 
+import de.marphi.gurk.game.environment.Location
+import de.marphi.gurk.game.environment.Player
+
 class CommandParser {
 
-    fun parse(commandLineInput: String) : Command {
-        // this only works with 'object' as sealed nested class, not for data classes
-        val knownCommands = Command::class.nestedClasses.map { it.objectInstance as Command }
+    fun parseCommand(commandLineInput: String) : Command {
+        val knownCommands = knownCommands()
 
         val words = commandLineInput.split(" ").map { it.toLowerCase() }
 
@@ -12,4 +14,14 @@ class CommandParser {
             ?: Command.Unknown
     }
 
+    fun parseLocationRelation(commandLineInput: String, player: Player): Location {
+        val words = commandLineInput.split(" ").map { it.toLowerCase() }
+        return player.currentLocation.neighboringLocations
+            .find { words.contains(it.name.toLowerCase()) } // use locationRelation adjective here too
+            ?.neighboringLocation
+            ?: Location.UNKNOWN_LOCATION
+    }
+
 }
+
+fun knownCommands() : List<Command> = Command::class.nestedClasses.map { it.objectInstance as Command }
