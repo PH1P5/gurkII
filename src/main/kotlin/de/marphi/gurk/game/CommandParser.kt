@@ -16,9 +16,17 @@ class CommandParser {
 
     fun parseLocationRelation(commandLineInput: String, player: Player): Location {
         val words = commandLineInput.split(" ").map { it.toLowerCase() }
-        return player.currentLocation.neighboringLocations
-            .find { words.contains(it.name.toLowerCase()) } // use locationRelation adjective here too
+
+        val moreSpecificLocationRelation = player.currentLocation.neighboringLocations
+            .find { words.contains(it.adjective.toLowerCase()) && words.contains(it.name.toLowerCase()) }
             ?.neighboringLocation
+
+        val simpleLocationRelation = player.currentLocation.neighboringLocations
+            .find { words.contains(it.name.toLowerCase()) }
+            ?.neighboringLocation
+
+        return moreSpecificLocationRelation
+            ?: simpleLocationRelation
             ?: Location.UNKNOWN_LOCATION
     }
 

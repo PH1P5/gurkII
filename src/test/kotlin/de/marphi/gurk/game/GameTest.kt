@@ -16,7 +16,6 @@ class GameTest {
     private lateinit var startLocation: Location
     private lateinit var game: Game
 
-
     @BeforeEach
     private fun initGame() {
         roomB = Location("Raum B")
@@ -33,8 +32,6 @@ class GameTest {
         game = Game(player, CommandParser())
     }
 
-
-    @Disabled("make this run using adjective in CommandParser")
     @Test
     fun `move command with adjective hits the one without adjective`() {
         game.handleInput("gehe durch die rote tür")
