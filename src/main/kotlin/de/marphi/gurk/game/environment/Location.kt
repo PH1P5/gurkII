@@ -15,13 +15,12 @@ data class Location(val description: String, val neighboringLocations: MutableLi
         return description +
                 "\n\n" +
                 if (neighboringLocations.isEmpty()) {
-                    "... du bist verloren, hier gibt es keine Weiterkommen ... aaaaaaaahhhhhhhh ..."
+                    "... du bist verloren, hier gibt es kein Weiterkommen ... aaaaaaaahhhhhhhh ..."
                 } else {
                     "Du kannst diesen Ort über folgende Möglichkeiten verlassen:\n\n" +
                             neighboringLocations.joinToString("\n")
-
-                }
-        "\n\n"
+                } +
+                "\n\n"
     }
 
 }
