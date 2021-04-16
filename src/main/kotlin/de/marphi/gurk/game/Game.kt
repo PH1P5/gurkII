@@ -4,7 +4,9 @@ import de.marphi.gurk.game.environment.Player
 
 class Game(val player: Player, val parser: CommandParser) {
 
-    fun introText(): String = "Das ist ein Spiel - tippe 'hilfe' wenn du nicht weiter kommst! $player"
+    fun introText(): String = "Das ist ein Spiel - tippe 'hilfe' wenn du nicht weiter kommst! " +
+            "\n\n" +
+            "$player"
 
     fun handleInput(commandLineInput: String): String {
         val command = parser.parseCommand(commandLineInput)
@@ -13,6 +15,7 @@ class Game(val player: Player, val parser: CommandParser) {
             Command.Move -> {
                 handlePlayerMovement(commandLineInput)
             }
+            Command.Look -> "$player\n\n"
             Command.Help -> createHelpText()
             Command.Unknown -> "... ${listOf("Was", "hö","wä","Wie","der Vorname", "Gewitter","Ägypten", "wie meinen").random()}?!?"
         }
@@ -27,7 +30,6 @@ class Game(val player: Player, val parser: CommandParser) {
         return "Folgende Befehle stehen zur Verfügung:" +
                 "\n" +
                 knownCommands().filterNot { it.name.isBlank() }.joinToString("\n") +
-                "\n\n" +
-                "$player"
+                "\n\n"
     }
 }

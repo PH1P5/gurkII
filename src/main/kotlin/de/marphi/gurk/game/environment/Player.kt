@@ -12,6 +12,6 @@ data class Player(var currentLocation: Location) {
     }
 
     override fun toString(): String {
-        return "\n\n" + currentLocation
+        return currentLocation.toString()
     }
 }
