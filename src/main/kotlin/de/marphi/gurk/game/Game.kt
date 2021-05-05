@@ -17,6 +17,13 @@ class Game(val player: Player, val parser: CommandParser) {
             }
             Command.Look -> "$player\n\n"
             Command.Help -> createHelpText()
+            Command.Take -> {
+                handlePlayerTake(commandLineInput)
+            }
+            Command.Pocket -> "Da wären ${player.pocket}"
+            Command.Examine -> {
+                handlePlayerExamine(commandLineInput)
+            }
             Command.Unknown -> "... ${listOf("Was", "hö","wä","Wie","der Vorname", "Gewitter","Ägypten", "wie meinen").random()}?!?"
         }
     }
@@ -24,6 +31,16 @@ class Game(val player: Player, val parser: CommandParser) {
     private fun handlePlayerMovement(commandLineInput: String): String {
         val nextLocation = parser.parseLocationRelation(commandLineInput, player)
         return player.move(nextLocation)
+    }
+
+    private fun handlePlayerTake(commandLineInput: String): String {
+        val itemToTake = parser.parseItem(commandLineInput, player)
+        return player.take(itemToTake)
+    }
+
+    private fun handlePlayerExamine(commandLineInput: String): String {
+        val itemToExamine = parser.parseItem(commandLineInput, player)
+        return player.examine(itemToExamine)
     }
 
     private fun createHelpText(): String {
